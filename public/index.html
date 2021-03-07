@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/game.css">
+    <script type="text/javascript" src="/public/javascript/fource.js"></script>
+    <title>Fource Game</title>
+</head>
+
+<body onload="newGame()">
+    <nav id="topNavBar"></nav>
+    <div class="container">
+        <div class="gameboard">
+            <div class="row even">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row odd">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row even">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row odd">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row even">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row odd">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row even">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div><br>
+            <div class="row odd">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="upper">
+                <div class="player-name">
+                    Black Player
+                </div>
+                <div id="black-play"></div>
+                <div id="black-message-box"></div>
+                <div class="score">Score: <span id="black-score"></span></div>
+            </div>
+            <div class="lower">
+                <div class="player-name">
+                    White Player
+                </div>
+                <div id="white-play"></div>
+                <div id="white-message-box"></div>
+                <div class="score">Score: <span id="white-score"></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-section">
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Load Navbars -->
+    <script>$(function () {
+            $("#topNavBar").load("./_html/_navbar.html");
+            //$("#footer").load("footer.html");
+        });
+    </script>
+</body>
+
+</html>

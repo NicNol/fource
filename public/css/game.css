@@ -1,0 +1,115 @@
+.gameboard {
+    line-height: 0;
+    border: solid 2px black;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+    min-width: 640px;
+}
+
+.row {
+    display: inline-block;
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    padding: 0;
+    margin: 0;
+    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.even .cell:nth-child(even), .odd .cell:nth-child(odd) {
+    background-color: #ebe5d5;
+}
+
+.even .cell:nth-child(odd), .odd .cell:nth-child(even) {
+    background-color: #c4b895;
+}
+
+.bp, .wp {
+    width: 64px;
+    height: 64px;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 100%;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+}
+
+.wp {
+    background-color: whitesmoke;
+    border: 3px solid #444;
+}
+
+.bp {
+    background-color: #444;
+    border: 3px solid #888;
+}
+
+.even .cell:nth-child(even).unsafeDrop, .odd .cell:nth-child(odd).unsafeDrop  {
+    animation: flashLight .5s ease-in 0s 1 forwards;
+    -webkit-animation: flashLight .5s ease-in 0s 1 forwards;
+}
+
+.even .cell:nth-child(odd).unsafeDrop, .odd .cell:nth-child(even).unsafeDrop {
+    animation: flashDark .5s ease-in 0s 1 forwards;
+    -webkit-animation: flashDark .5s ease-in 0s 1 forwards;
+}
+
+@keyframes flashLight {
+    from {background-color: #ebe5d5;}
+    to {background-color: #e0acac;}
+}
+
+@keyframes flashDark {
+    from {background-color: #c4b895;}
+    to {background-color: #b67373;}
+}
+
+.sidebar {
+    float: right;
+    width: 320px;
+    margin-left:1em;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+}
+
+.upper, .lower {
+    height: 100%;
+    flex-grow: 1;
+    padding: 1em;
+    border: white solid 2px;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.upper {
+    background-color: rgb(46, 46, 46);
+    color: white;
+    margin-bottom: .5em;
+    border-radius: 8px 0px 8px 8px;
+}
+
+.lower {
+    background-color: rgb(224, 224, 224);
+    color: black;
+    margin-top: .5em;
+    border-radius: 8px 8px 0px 8px;
+}
+
+.bottom-section {
+    margin: 1em;
+    text-align: center;
+}
+
+.score span {
+    font-weight: 700;
+}

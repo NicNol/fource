@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/game.css">
+    <script type="text/javascript" src="/public/javascript/fource.js"></script>
+    <title>Fource Game | How to Play</title>
+</head>
+
+<body>
+    <nav id="topNavBar"></nav>
+    <div class="container">
+        <div class="about-box">
+            <h2>How to Play</h2><br><br>
+            <h3>Gameplay</h3>
+            <p>Randomly determine who plays each color. White moves firs. Players alternate turns. Each turn consists of two mandatory phases:</p>
+            <p>1) <em>Add</em>: Add a new piece of your color to an empty square on the board. This is the active piece for the turn.</p>
+            <p>2) <em>Force</em>: The active piece then exerts a force that attracts pieces of the same color and repels peieces of the other color. Any same-color piece that is orthogonally visible to the active piece will move along its row or column and end up next to the active piece. Any opposite-color piece that is orthogonally visible to the active piece will move away fro the active piece along its row or column until blocked by another piece or the edge of the board. Every piece that is in the same row or column as the active piece and has no pieces between it and the active piece must be moved. A piece may still be played even if it does not attract or repel any other pieces.</p><br>
+            <h3>Prohibited Moves</h3>
+            <p>Any move which would cause exactly three pieces of the same color to be next to each other in a row or column at the end of the turn is prohibited. The only exception is that three peices of the same color can be adjacent to each other along the edge of the board.</p><br>
+            <h3>Winning</h3>
+            <p>A player wins if four or mroe of their pieces are next to each other in a row or column at the end of any turn. These pieces cannot all be along the edge of the board. A player can win after their turn or after an oppoinent's turn. If a turn ends with both players getting four or more in a row, the player who did not make the move wins. A move that creates a prohibited three-in-a-row of the either color is not allowed, even if doing so would also create a four-in-a-row for one of the players.</p><br>
+            <h3>Endgame</h3>
+            <p>The primary goal of Fource is to achieve a four-in-a-row victory as described above, but it is possible that no player attains that condition. There are two other ways that a game can come to an end. First, all pieces could be playd with no player getting four of their pieces in a row. Second, one player could run out of legal moves to make even though they still have pieces to play.</p>
+            <p>If one player has no more legal moves, the other player may take one additional turn if they are willing and able to do so. If the extra turn does not result in a four-in-a-row victory, the game ends, even if the first player can now make a legal move. Once no more pieces are to be played, players remove all of their pieces from the board that are not in orthogonally-connected groups of at least four pieces. Whoever ahs the most pieces left on the baord wins. If there is a tie, whoever has the largest otherogonally-connected group wins. If there is still a tie, the result is a tie. If players decide to play multiple games in a row, switch colors between each game.</p>
+        </div>        
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Load Navbars -->
+    <script>$(function () {
+            $("#topNavBar").load("./_html/_navbar.html");
+            //$("#footer").load("footer.html");
+        });
+    </script>
+</body>
+
+</html>
