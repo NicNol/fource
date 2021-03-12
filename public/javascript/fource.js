@@ -1,3 +1,5 @@
+const socket = io(null, { autoConnect: true });
+
 var turn = "white"
 var cells, cellsClone;
 var targetSquare;
@@ -7,6 +9,12 @@ var safeDropArray = [];
 var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
+
+socket.on('piece-drop', targetSquare => {
+    dropPieceIn(targetSquare);
+    forcePiecesFrom(targetSquare);
+    nextTurn();
+})
 
 function scoreCheck(pieceClass) {
     let clusters = []
@@ -143,7 +151,6 @@ function checkGameOver() {
     }
 
     if (countEmptyCells() == 0) { lastTurn = true; }
-    console.log(countEmptyCells());
  
     if (lastTurn) {
         if (whiteScore > blackScore) {
@@ -197,6 +204,7 @@ function drop(ev) {
     setSafeDropArray();
     setScores();
     checkGameOver();
+    socket.emit('user-piece-drop', targetSquare)
 }
 
 function setTargetSquare(eventTarget) {
