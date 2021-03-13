@@ -31,3 +31,21 @@ h3 {
 p {
     margin: 1em 0;
 }
+
+a {
+    font-weight: 400;
+    padding: 0 1em;
+    color:rgb(224, 224, 224);
+    text-transform: uppercase;
+    text-decoration: none;
+    text-shadow: #2e2e2e 1px 1px 0;
+    position: relative;
+    top: 0px;
+    display: inline-block;
+    transition: color 0.2s ease-in-out, top 0.1s ease-in-out;
+}
+
+a:hover {
+    color: #fff;
+    top: -2px;
+}

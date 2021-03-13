@@ -1,4 +1,5 @@
 const socket = io(null, { autoConnect: true });
+const gameID = window.location.pathname.slice(1, 11)
 
 var turn = "white"
 var cells, cellsClone;
@@ -10,8 +11,7 @@ var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
 
-
-socket.emit('player connect');
+socket.emit('player connect', gameID)
 
 socket.on('piece-drop', targetSquare => {
     dropPieceIn(targetSquare);
@@ -207,7 +207,7 @@ function drop(ev) {
     setSafeDropArray();
     setScores();
     checkGameOver();
-    socket.emit('user-piece-drop', targetSquare)
+    socket.emit('user-piece-drop', gameID, targetSquare)
 }
 
 function setTargetSquare(eventTarget) {
