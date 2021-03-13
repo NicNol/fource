@@ -11,6 +11,14 @@ const options = {
 const io = require('socket.io')(httpServer, options);
 const PORT = process.env.PORT || 5000
 
+var games = {}
+
+const gameObject = {
+    white: null,
+    black: null
+}
+
+
 var createGameID = function (req, res, next) {
     let gameIDLength = 11;
     let result = '';
@@ -32,7 +40,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/newgame', (req, res) => {
-    let gameID = req.createGameID
+    let gameID = req.createGameID;
+    games[gameID] = gameObject;
     app.get('/' + gameID, (req, res) => {
         res.sendFile(path.join(__dirname + '/public/game.html'));
     })
@@ -46,7 +55,18 @@ io.on('connection', socket => {
         gameID = ID
         console.log(socket.id, " connected to Game ", gameID)
         socket.join(gameID);
+        if (games[gameID].white == undefined) {
+            games[gameID].white = socket.id
+            io.to(socket.id).emit('assign-color', "white")
+        }
+        else if (games[gameID].black == undefined) {
+            games[gameID].black = socket.id
+            io.to(socket.id).emit('assign-color', "black")
+        }
+        
     })
+
+    
 
     socket.on('user-piece-drop', (gameID, targetSquare) => {
         socket.to(gameID).broadcast.emit('piece-drop', targetSquare);

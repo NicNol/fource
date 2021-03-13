@@ -1,7 +1,8 @@
 const socket = io(null, { autoConnect: true });
-const gameID = window.location.pathname.slice(1, 11)
+const gameID = window.location.pathname.slice(1, 12)
 
 var turn = "white"
+var userColor;
 var cells, cellsClone;
 var targetSquare;
 const whiteToken = "<div class='wp' id='wp-drag' draggable='true' ondragstart='drag(event)'></div>"
@@ -12,6 +13,10 @@ var winner;
 var lastTurn = false;
 
 socket.emit('player connect', gameID)
+
+socket.on('assign-color', color => {
+    userColor = color;
+})
 
 socket.on('piece-drop', passedTargetSquare => {
     targetSquare = passedTargetSquare;
