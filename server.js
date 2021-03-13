@@ -8,8 +8,6 @@ const options = {cors: {
 const io = require('socket.io')(httpServer, options);
 const PORT = process.env.PORT || 5000
 
-var routes = {};
-
 //app.set('view engine', 'ejs');
 
 var createGameID = function (req, res, next) {
@@ -26,7 +24,7 @@ var createGameID = function (req, res, next) {
 
 app.use(createGameID);
 
-app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/', express.static(path.join(__dirname, '/public')));
 
 app.get('/',  (req, res) => {
     res.sendFile(path.join(__dirname + '/public/index.html'));
@@ -35,7 +33,7 @@ app.get('/',  (req, res) => {
 app.get('/newgame',  (req, res) => {
     let gameID = req.createGameID
     app.get('/' + gameID,  (req, res) => {
-        res.sendFile(path.join(__dirname + '/public/index.html'));
+        res.sendFile(path.join(__dirname + '/public/game.html'));
     })
     res.redirect('/' + gameID);
 })
