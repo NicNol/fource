@@ -10,6 +10,9 @@ var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
 
+
+socket.emit('player connect');
+
 socket.on('piece-drop', targetSquare => {
     dropPieceIn(targetSquare);
     forcePiecesFrom(targetSquare);
@@ -134,7 +137,7 @@ function endGame() {
 function countEmptyCells() {
     let emptyCells = 0;
     for (let i = 0; i < 64; i++) {
-        if (cells[i].innerHTML == "") {emptyCells++}
+        if (cells[i].innerHTML == "") { emptyCells++ }
     }
     return emptyCells;
 }
@@ -143,7 +146,7 @@ function checkGameOver() {
     checkForWin();
     if (winner == "wp") {
         sendGameMessage("both", "White Wins!");
-        endGame();     
+        endGame();
     }
     if (winner == "bp") {
         sendGameMessage("both", "Black Wins!");
@@ -151,7 +154,7 @@ function checkGameOver() {
     }
 
     if (countEmptyCells() == 0) { lastTurn = true; }
- 
+
     if (lastTurn) {
         if (whiteScore > blackScore) {
             sendGameMessage("both", "White Wins!");
@@ -167,7 +170,7 @@ function checkGameOver() {
         nextTurn();
         clearUnsafeDrop();
         setSafeDropArray();
-    } 
+    }
 }
 
 function newGame() {
@@ -587,7 +590,7 @@ function checkForWinVertical(pieceClass) {
     //skip edge cells per rules
     for (let i = 8; i < 56; i++) {
         vCell = (i % 8) * 8 + Math.floor(i / 8)
-        
+
         if (i % 8 == 0) {
             consec = 0;
             prevClass = "";
@@ -635,7 +638,7 @@ function checkForWin() {
     let otherPieceClass;
     turn == "white" ? pieceClass = "wp" : pieceClass = "bp";
     turn == "white" ? otherPieceClass = "bp" : otherPieceClass = "wp";
-    
-    if (checkForWinHorizontal(pieceClass) || checkForWinVertical(pieceClass)) {winner = pieceClass}
-    else if (checkForWinHorizontal(otherPieceClass) || checkForWinVertical(otherPieceClass)) {winner = otherPieceClass}
+
+    if (checkForWinHorizontal(pieceClass) || checkForWinVertical(pieceClass)) { winner = pieceClass }
+    else if (checkForWinHorizontal(otherPieceClass) || checkForWinVertical(otherPieceClass)) { winner = otherPieceClass }
 }
