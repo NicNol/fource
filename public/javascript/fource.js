@@ -13,10 +13,16 @@ var lastTurn = false;
 
 socket.emit('player connect', gameID)
 
-socket.on('piece-drop', targetSquare => {
+socket.on('piece-drop', passedTargetSquare => {
+    targetSquare = passedTargetSquare;
     dropPieceIn(targetSquare);
     forcePiecesFrom(targetSquare);
+    removeTargetDropClasses();
     nextTurn();
+    clearUnsafeDrop();
+    setSafeDropArray();
+    setScores();
+    checkGameOver();
 })
 
 function scoreCheck(pieceClass) {
