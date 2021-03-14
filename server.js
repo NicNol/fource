@@ -58,13 +58,13 @@ io.on('connection', socket => {
         if (games[gameID].white == undefined) {
             games[gameID].white = socket.id
             io.to(socket.id).emit('assign-color', "white")
+            return;
         }
         else if (games[gameID].black == undefined) {
             games[gameID].black = socket.id
             io.to(socket.id).emit('assign-color', "black")
-            io.to(gameID).emit('both-players-connected')
         }
-        
+        io.to(gameID).emit('both-players-connected')
     })
 
     
