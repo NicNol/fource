@@ -2,7 +2,7 @@ const socket = io(null, { autoConnect: true });
 const gameID = window.location.pathname.slice(1, 12)
 
 var turn = "white"
-var userColor;
+var userColor = "spectator";
 var cells, cellsClone;
 var targetSquare;
 const whiteToken = "<div class='wp' id='wp-drag' draggable='true' ondragstart='drag(event)'></div>"
@@ -184,7 +184,7 @@ function checkGameOver() {
     }
 }
 
-function newGame() {
+async function newGame() {
     getCells();
     for (let i = 0; i < cells.length; i++) {
         if (i == 21 || i == 42) { cells[i].innerHTML = "<div class='wp'></div>" }
@@ -192,10 +192,23 @@ function newGame() {
         else { cells[i].innerHTML = "" }
     }
     turn = "white"
+
+    try {
+        let response = await didBothUsersConnect;
+    } catch (error) {
+
+    }
+
     nextTurn();
     setSafeDropArray();
     setScores();
 }
+
+var didBothUsersConnect = new Promise( (resolve, reject) => {
+    socket.on('both-players-connected', () => {
+        resolve(true);
+    })
+})
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -312,17 +325,18 @@ function switchTurn() {
 }
 
 function nextTurn() {
-    if (turn == "white") {
-        document.getElementById("white-play").innerHTML = whiteToken;
-        document.getElementById("black-play").innerHTML = ""
-        turn = "black"
-        return;
-    } else {
-        document.getElementById("black-play").innerHTML = blackToken;
-        document.getElementById("white-play").innerHTML = ""
-        turn = "white"
+    if (turn !== userColor) {
+        switchTurn();
         return;
     }
+
+    if (turn == "white") {
+        document.getElementById("white-play").innerHTML = whiteToken;
+    } else {
+        document.getElementById("black-play").innerHTML = blackToken;
+    }
+
+    switchTurn();
 }
 
 function forcePiecesFrom(cellNumber, cellSet = cells) {
