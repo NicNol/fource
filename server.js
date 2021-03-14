@@ -15,7 +15,8 @@ var games = {}
 
 const gameObject = {
     white: null,
-    black: null
+    black: null,
+    moveSet: []
 }
 
 
@@ -41,7 +42,7 @@ app.get('/', (req, res) => {
 
 app.get('/newgame', (req, res) => {
     let gameID = req.createGameID;
-    games[gameID] = gameObject;
+    games[gameID] = JSON.parse(JSON.stringify(gameObject));
     app.get('/' + gameID, (req, res) => {
         res.sendFile(path.join(__dirname + '/public/game.html'));
     })
@@ -49,6 +50,9 @@ app.get('/newgame', (req, res) => {
 })
 
 io.on('connection', socket => {
+    //Use this code to connect sockets to each user?
+    //const userId = await fetchUserId(socket);
+    //socket.join(userId);
     let gameID;
 
     socket.on('player connect', ID => {
@@ -63,14 +67,18 @@ io.on('connection', socket => {
         else if (games[gameID].black == undefined) {
             games[gameID].black = socket.id
             io.to(socket.id).emit('assign-color', "black")
+            io.to(gameID).emit('both-players-connected');
+            return;
         }
-        io.to(gameID).emit('both-players-connected')
+        io.to(socket.id).emit('both-players-connected');
+        io.to(socket.id).emit('moves-played', games[gameID].moveSet);
     })
 
-    
+
 
     socket.on('user-piece-drop', (gameID, targetSquare) => {
         socket.to(gameID).broadcast.emit('piece-drop', targetSquare);
+        games[gameID].moveSet.push(targetSquare);
     })
 
 });

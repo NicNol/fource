@@ -192,22 +192,42 @@ async function newGame() {
         else { cells[i].innerHTML = "" }
     }
     turn = "white"
+    
 
-    try {
-        let response = await didBothUsersConnect;
-    } catch (error) {
-
-    }
+    let connectResponse = await didBothUsersConnect;
 
     nextTurn();
     setSafeDropArray();
     setScores();
+
+    let movesResponse = await getPlayedMoves;
 }
 
-var didBothUsersConnect = new Promise( (resolve, reject) => {
+var didBothUsersConnect = new Promise((resolve, reject) => {
     socket.on('both-players-connected', () => {
         resolve(true);
     })
+})
+
+var getPlayedMoves = new Promise((resolve, reject) => {
+    socket.on('moves-played', moveSet => {
+        let moveSetLength = moveSet.length;
+        switchTurn();
+        for (let i = 0; i < moveSetLength; i++) {
+            targetSquare = moveSet[i];
+            dropPieceIn(targetSquare);
+            forcePiecesFrom(targetSquare);
+            nextTurn();
+        }
+        if (moveSetLength > 0) {
+            removeTargetDropClasses();
+            clearUnsafeDrop();
+            setSafeDropArray();
+            setScores();
+            checkGameOver();
+        }
+    })
+    resolve();
 })
 
 function allowDrop(ev) {
