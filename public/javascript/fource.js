@@ -219,7 +219,7 @@ var getPlayedMoves = new Promise((resolve, reject) => {
             forcePiecesFrom(targetSquare);
             nextTurn();
         }
-        switchTurn();
+        //switchTurn();
         if (moveSetLength > 0) {
             removeTargetDropClasses();
             clearUnsafeDrop();
