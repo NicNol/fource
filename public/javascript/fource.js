@@ -1,6 +1,8 @@
 const socket = io(null, { autoConnect: true });
+const gameID = window.location.pathname.slice(1, 12)
 
 var turn = "white"
+var userColor = "spectator";
 var cells, cellsClone;
 var targetSquare;
 const whiteToken = "<div class='wp' id='wp-drag' draggable='true' ondragstart='drag(event)'></div>"
@@ -10,10 +12,22 @@ var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
 
-socket.on('piece-drop', targetSquare => {
+socket.emit('player connect', gameID)
+
+socket.on('assign-color', color => {
+    userColor = color;
+})
+
+socket.on('piece-drop', passedTargetSquare => {
+    targetSquare = passedTargetSquare;
     dropPieceIn(targetSquare);
     forcePiecesFrom(targetSquare);
+    removeTargetDropClasses();
     nextTurn();
+    clearUnsafeDrop();
+    setSafeDropArray();
+    setScores();
+    checkGameOver();
 })
 
 function scoreCheck(pieceClass) {
@@ -134,7 +148,7 @@ function endGame() {
 function countEmptyCells() {
     let emptyCells = 0;
     for (let i = 0; i < 64; i++) {
-        if (cells[i].innerHTML == "") {emptyCells++}
+        if (cells[i].innerHTML == "") { emptyCells++ }
     }
     return emptyCells;
 }
@@ -143,7 +157,7 @@ function checkGameOver() {
     checkForWin();
     if (winner == "wp") {
         sendGameMessage("both", "White Wins!");
-        endGame();     
+        endGame();
     }
     if (winner == "bp") {
         sendGameMessage("both", "Black Wins!");
@@ -151,7 +165,7 @@ function checkGameOver() {
     }
 
     if (countEmptyCells() == 0) { lastTurn = true; }
- 
+
     if (lastTurn) {
         if (whiteScore > blackScore) {
             sendGameMessage("both", "White Wins!");
@@ -167,10 +181,10 @@ function checkGameOver() {
         nextTurn();
         clearUnsafeDrop();
         setSafeDropArray();
-    } 
+    }
 }
 
-function newGame() {
+async function newGame() {
     getCells();
     for (let i = 0; i < cells.length; i++) {
         if (i == 21 || i == 42) { cells[i].innerHTML = "<div class='wp'></div>" }
@@ -178,10 +192,44 @@ function newGame() {
         else { cells[i].innerHTML = "" }
     }
     turn = "white"
+    
+
+    let connectResponse = await didBothUsersConnect;
+
     nextTurn();
     setSafeDropArray();
     setScores();
+
+    let movesResponse = await getPlayedMoves;
 }
+
+var didBothUsersConnect = new Promise((resolve, reject) => {
+    socket.on('both-players-connected', () => {
+        resolve(true);
+    })
+})
+
+var getPlayedMoves = new Promise((resolve, reject) => {
+    socket.on('moves-played', moveSet => {
+        let moveSetLength = moveSet.length;
+        switchTurn();
+        for (let i = 0; i < moveSetLength; i++) {
+            targetSquare = moveSet[i];
+            dropPieceIn(targetSquare);
+            forcePiecesFrom(targetSquare);
+            nextTurn();
+        }
+        switchTurn();
+        if (moveSetLength > 0) {
+            removeTargetDropClasses();
+            clearUnsafeDrop();
+            setSafeDropArray();
+            setScores();
+            checkGameOver();
+        }
+    })
+    resolve();
+})
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -204,7 +252,7 @@ function drop(ev) {
     setSafeDropArray();
     setScores();
     checkGameOver();
-    socket.emit('user-piece-drop', targetSquare)
+    socket.emit('user-piece-drop', gameID, targetSquare)
 }
 
 function setTargetSquare(eventTarget) {
@@ -298,17 +346,18 @@ function switchTurn() {
 }
 
 function nextTurn() {
-    if (turn == "white") {
-        document.getElementById("white-play").innerHTML = whiteToken;
-        document.getElementById("black-play").innerHTML = ""
-        turn = "black"
-        return;
-    } else {
-        document.getElementById("black-play").innerHTML = blackToken;
-        document.getElementById("white-play").innerHTML = ""
-        turn = "white"
+    if (turn !== userColor) {
+        switchTurn();
         return;
     }
+
+    if (turn == "white") {
+        document.getElementById("white-play").innerHTML = whiteToken;
+    } else {
+        document.getElementById("black-play").innerHTML = blackToken;
+    }
+
+    switchTurn();
 }
 
 function forcePiecesFrom(cellNumber, cellSet = cells) {
@@ -587,7 +636,7 @@ function checkForWinVertical(pieceClass) {
     //skip edge cells per rules
     for (let i = 8; i < 56; i++) {
         vCell = (i % 8) * 8 + Math.floor(i / 8)
-        
+
         if (i % 8 == 0) {
             consec = 0;
             prevClass = "";
@@ -635,7 +684,7 @@ function checkForWin() {
     let otherPieceClass;
     turn == "white" ? pieceClass = "wp" : pieceClass = "bp";
     turn == "white" ? otherPieceClass = "bp" : otherPieceClass = "wp";
-    
-    if (checkForWinHorizontal(pieceClass) || checkForWinVertical(pieceClass)) {winner = pieceClass}
-    else if (checkForWinHorizontal(otherPieceClass) || checkForWinVertical(otherPieceClass)) {winner = otherPieceClass}
+
+    if (checkForWinHorizontal(pieceClass) || checkForWinVertical(pieceClass)) { winner = pieceClass }
+    else if (checkForWinHorizontal(otherPieceClass) || checkForWinVertical(otherPieceClass)) { winner = otherPieceClass }
 }

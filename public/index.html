@@ -5,132 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/css/style.css">
-    <link rel="stylesheet" href="/public/css/game.css">
-    <link rel="icon" type="image/png" href="/public/images/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <title>Fource Game</title>
 </head>
 
-<body onload="newGame()">
+<body>
     <nav id="topNavBar"></nav>
     <div class="container">
-        <div class="gameboard">
-            <div class="row even">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row odd">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row even">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row odd">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row even">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row odd">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row even">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div><br>
-            <div class="row odd">
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-                <div class="cell"></div>
-            </div>
-        </div>
-        <div class="sidebar">
-            <div class="upper">
-                <div class="player-name">
-                    Black Player
-                </div>
-                <div id="black-play"></div>
-                <div id="black-message-box"></div>
-                <div class="score">Score: <span id="black-score"></span></div>
-            </div>
-            <div class="lower">
-                <div class="player-name">
-                    White Player
-                </div>
-                <div id="white-play"></div>
-                <div id="white-message-box"></div>
-                <div class="score">Score: <span id="white-score"></span></div>
-            </div>
-        </div>
-    </div>
-    <div class="bottom-section">
-
+        <a href="/newgame">New Game</a>
     </div>
 
-    <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Load Navbars -->
     <script>$(function () {
-            $("#topNavBar").load("/public/_html/_navbar.html");
+            $("#topNavBar").load("/_html/_navbar.html");
             //$("#footer").load("footer.html");
         });
     </script>
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="/public/javascript/fource.js"></script>
 </body>
 
 </html>
