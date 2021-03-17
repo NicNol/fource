@@ -5,7 +5,7 @@ const httpServer = require("http").createServer(app);
 const serveStatic = require('serve-static')
 const options = {
     cors: {
-        origin: "http://localhost:5000",
+        //origin: "http://localhost:5000",
     }
 };
 const io = require('socket.io')(httpServer, options);
