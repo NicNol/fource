@@ -102,13 +102,17 @@
     border-radius: 8px 8px 0px 8px;
 }
 
-.bottom-section {
-    margin: 1em;
-    text-align: center;
+.player-name, #white-message-box, #black-message-box {
+    flex-grow: 0;
 }
 
 .score span {
+    flex-grow: 0;
     font-weight: 700;
+}
+
+#white-play, #black-play {
+    flex-basis: 100px;
 }
 
 #white-online-status, #black-online-status {
@@ -132,6 +136,7 @@
     font-size: 24pt;
     text-shadow: #2e2e2e 2px 2px 0;
     padding: .25em;
+    flex-grow: 0;
 }
 
 #white-timer-block {
@@ -146,4 +151,9 @@
     border-radius: 2px;
     background-color:  rgb(73, 73, 73);
     color: white;
+}
+
+.bottom-section {
+    margin: 1em;
+    text-align: center;
 }
