@@ -14,6 +14,10 @@
 <body onload="newGame()">
     <nav id="topNavBar"></nav>
     <div class="container">
+        <div class="chat">
+            <div class="chat-area"></div>
+            <div class="chat-input-box"><input type="text" value="Test"><button>Send</button></div>
+        </div>
         <div class="gameboard">
             <div class="row even">
                 <div class="cell"></div>
@@ -100,12 +104,12 @@
             
             <div class="upper">
                 <div id="black-timer-block">00:00:00</div>
+                <div class="score">Score: <span id="black-score"></span></div>
+                <div id="black-play"></div>
+                <div id="black-message-box"></div>
                 <div class="player-name">
                     <div id="black-online-status" class="offline"></div> <span id="black-player-name">Black Player</span>
                 </div>
-                <div id="black-play"></div>
-                <div id="black-message-box"></div>
-                <div class="score">Score: <span id="black-score"></span></div>
             </div>
             <div class="lower">
                 <div class="player-name">

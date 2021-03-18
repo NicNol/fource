@@ -69,12 +69,28 @@
     to {background-color: #b67373;}
 }
 
+.chat {
+    background-color: rgb(224, 224, 224);
+    color: black;
+    float: left;
+    width: 320px;
+    margin-right:1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: white solid 2px;
+    border-radius: 8px 0px 0px 8px;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+}
+
 .sidebar {
     float: right;
     width: 320px;
     margin-left:1em;
     display: flex;
     flex-direction: column;
+
 }
 
 .upper, .lower {
@@ -92,14 +108,14 @@
     background-color: rgb(46, 46, 46);
     color: white;
     margin-bottom: .5em;
-    border-radius: 8px 0px 8px 8px;
+    border-radius: 0px 8px 8px 8px;
 }
 
 .lower {
     background-color: rgb(224, 224, 224);
     color: black;
     margin-top: .5em;
-    border-radius: 8px 8px 0px 8px;
+    border-radius: 8px 8px 8px 0px;
 }
 
 .player-name, #white-message-box, #black-message-box {
