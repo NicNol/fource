@@ -1,6 +1,10 @@
 const socket = io(null, { autoConnect: true });
 const gameID = window.location.pathname.slice(1, 12)
 
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input')
+const chatArea = document.getElementById('chat-message-area')
+
 var turn = "white"
 var userColor = "spectator";
 var cells, cellsClone;
@@ -48,10 +52,6 @@ socket.on('receive-chat-message', messageHTML => {
     newMessage.innerHTML = messageHTML;
     chatArea.appendChild(newMessage);
 });
-
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input')
-const chatArea = document.getElementById('chat-message-area')
 
 chatForm.addEventListener('submit', event => {
     event.preventDefault();

@@ -124,6 +124,7 @@ function getUserRole (gameID, socketID) {
 }
 
 function formatChatMessage (username, message) {
+    username = username.charAt(0).toUpperCase() + username.slice(1);
     return "<em>" + username + ":</em> " + message
 }
 
