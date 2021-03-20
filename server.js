@@ -54,32 +54,33 @@ io.on('connection', socket => {
     //socket.join(userId);
     let gameID;
 
-    socket.on('player connect', ID => {
+    socket.on('user-connected', ID => {
         gameID = ID
         console.log(socket.id, " connected to Game ", gameID)
         socket.join(gameID);
 
+        if (games[gameID] == undefined) {return}
         if (games[gameID].white == undefined) {
             games[gameID].white = socket.id
             io.to(socket.id).emit('assign-color', "white")
-            return;
         }
         else if (games[gameID].black == undefined) {
             games[gameID].black = socket.id
             io.to(socket.id).emit('assign-color', "black")
+            io.to(gameID).emit('both-players-connected');
         }
         
         const WhoIsInGame = io.in(gameID).allSockets()
-        WhoIsInGame.then( socketsSet => {
-            if (socketsSet.has(games[gameID].white)) {
+        WhoIsInGame.then( connectedSockets => {
+            if (connectedSockets.has(games[gameID].white)) {
                 io.to(gameID).emit('update-online-status', "white", "online")
             }
-            if (socketsSet.has(games[gameID].black)) {
+            if (connectedSockets.has(games[gameID].black)) {
                 io.to(gameID).emit('update-online-status', "black", "online")
             }
         })
 
-        io.to(socket.id).emit('both-players-connected');
+        
         io.to(socket.id).emit('moves-played', games[gameID].moveSet);
     })
 

@@ -182,7 +182,10 @@
 }
 
 #white-play, #black-play {
-    flex-basis: 100px;
+    flex-basis: 80px;
+    display:flex;
+    justify-content: center;
+    align-items: center; 
 }
 
 #white-online-status, #black-online-status {
@@ -191,6 +194,10 @@
     height: 12px;
     border-radius: 6px;
     margin: 0 1em 0 0;
+}
+
+#black-message-box, #white-message-box {
+    height: 3em;
 }
 
 .online {

@@ -12,7 +12,7 @@ var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
 
-socket.emit('player connect', gameID)
+socket.emit('user-connected', gameID)
 
 socket.on('assign-color', color => {
     userColor = color;
