@@ -16,6 +16,19 @@ socket.emit('player connect', gameID)
 
 socket.on('assign-color', color => {
     userColor = color;
+    socket.emit('color-is-online', color);
+})
+
+socket.on('update-online-status', (color, status) => {
+    let newStatus = status;
+    let oldStatus;
+    newStatus == "online" ? oldStatus = "offline" : oldStatus = "online";
+    
+    if (document.getElementById(color + "-online-status").classList.contains(newStatus)) {return;}
+    
+    document.getElementById(color + "-online-status").classList.remove(oldStatus)
+    document.getElementById(color + "-online-status").classList.add(newStatus)
+
 })
 
 socket.on('piece-drop', passedTargetSquare => {

@@ -19,7 +19,6 @@ const gameObject = {
     moveSet: []
 }
 
-
 var createGameID = function (req, res, next) {
     let gameIDLength = 11;
     let result = '';
@@ -59,6 +58,7 @@ io.on('connection', socket => {
         gameID = ID
         console.log(socket.id, " connected to Game ", gameID)
         socket.join(gameID);
+
         if (games[gameID].white == undefined) {
             games[gameID].white = socket.id
             io.to(socket.id).emit('assign-color', "white")
@@ -67,20 +67,39 @@ io.on('connection', socket => {
         else if (games[gameID].black == undefined) {
             games[gameID].black = socket.id
             io.to(socket.id).emit('assign-color', "black")
-            io.to(gameID).emit('both-players-connected');
-            return;
         }
+        
+        const WhoIsInGame = io.in(gameID).allSockets()
+        WhoIsInGame.then( socketsSet => {
+            if (socketsSet.has(games[gameID].white)) {
+                io.to(gameID).emit('update-online-status', "white", "online")
+            }
+            if (socketsSet.has(games[gameID].black)) {
+                io.to(gameID).emit('update-online-status', "black", "online")
+            }
+        })
+
         io.to(socket.id).emit('both-players-connected');
         io.to(socket.id).emit('moves-played', games[gameID].moveSet);
     })
 
-
+    socket.on('color-is-online', color => {
+        io.to(gameID).emit('update-online-status', color, "online");
+    })
 
     socket.on('user-piece-drop', (gameID, targetSquare) => {
         socket.to(gameID).broadcast.emit('piece-drop', targetSquare);
         games[gameID].moveSet.push(targetSquare);
     })
 
+    socket.on("disconnect", (reason) => {
+        let playerColor;
+        if (games[gameID] == undefined) {return};
+        if (games[gameID].white == socket.id) {playerColor = "white"}
+        else if (games[gameID].black == socket.id) {playerColor = "black"}
+        else {return}
+        io.to(gameID).emit('update-online-status', playerColor, "offline");
+      });
 });
 
 httpServer.listen(PORT)

@@ -201,6 +201,10 @@
     background-color: #999;
 }
 
+.player-name span {
+    font-weight: 700;
+}
+
 #white-timer-block, #black-timer-block {
     text-align: center;
     font-size: 24pt;
