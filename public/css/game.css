@@ -119,6 +119,9 @@
 
 #chat-input-box {
     padding-top: 1em;
+}
+
+#chat-input-box form {
     display: flex;
 }
 
