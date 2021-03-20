@@ -79,7 +79,6 @@ io.on('connection', socket => {
                 io.to(gameID).emit('update-online-status', "black", "online")
             }
         })
-
         
         io.to(socket.id).emit('moves-played', games[gameID].moveSet);
     })
@@ -93,6 +92,12 @@ io.on('connection', socket => {
         games[gameID].moveSet.push(targetSquare);
     })
 
+    socket.on('chat-message', (socketID, messageBody) => {
+        let username = getUserRole(gameID, socketID)
+        let messageHTML = formatChatMessage(username, messageBody);
+        io.to(gameID).emit('receive-chat-message', messageHTML);
+    })
+
     socket.on("disconnect", (reason) => {
         let playerColor;
         if (games[gameID] == undefined) {return};
@@ -102,5 +107,24 @@ io.on('connection', socket => {
         io.to(gameID).emit('update-online-status', playerColor, "offline");
       });
 });
+
+function getUserRole (gameID, socketID) {
+    if (games[gameID] == undefined) {return "error"}
+    if (games[gameID].white != undefined) {
+        if (games[gameID].white == socketID) {
+            return "white";
+        }
+    }
+    if (games[gameID].black != undefined) {
+        if (games[gameID].black == socketID) {
+            return "black";
+        }
+    }
+    return "spectator";
+}
+
+function formatChatMessage (username, message) {
+    return "<em>" + username + ":</em> " + message
+}
 
 httpServer.listen(PORT)

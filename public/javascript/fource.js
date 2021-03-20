@@ -43,6 +43,24 @@ socket.on('piece-drop', passedTargetSquare => {
     checkGameOver();
 })
 
+socket.on('receive-chat-message', messageHTML => {
+    let newMessage = document.createElement('span');
+    newMessage.innerHTML = messageHTML;
+    chatArea.appendChild(newMessage);
+});
+
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input')
+const chatArea = document.getElementById('chat-message-area')
+
+chatForm.addEventListener('submit', event => {
+    event.preventDefault();
+    if(chatInput.value) {
+        socket.emit('chat-message', socket.id, chatInput.value)
+    }
+    chatInput.value = "";
+});
+
 function scoreCheck(pieceClass) {
     let clusters = []
     let points = 0;

@@ -97,7 +97,7 @@
     font-weight: 400;
 }
 
-.chat-message-area {
+#chat-message-area {
     flex-grow: 1;
     font-weight: 100;
     overflow-y: scroll;
@@ -107,17 +107,17 @@
     justify-content: flex-end;
 }
 
-.chat-message-area span {
+#chat-message-area span {
     display: block;
     margin: .25em 0;
     padding: 1em 1em 0em 0em;
 }
 
-.chat-message-area em {
+#chat-message-area em {
     font-weight: 400;
 }
 
-.chat-input-box {
+#chat-input-box {
     padding-top: 1em;
     display: flex;
 }
