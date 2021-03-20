@@ -51,6 +51,7 @@ socket.on('receive-chat-message', messageHTML => {
     let newMessage = document.createElement('span');
     newMessage.innerHTML = messageHTML;
     chatArea.appendChild(newMessage);
+    chatArea.scrollTop = chatArea.scrollHeight;
 });
 
 chatForm.addEventListener('submit', event => {

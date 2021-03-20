@@ -100,9 +100,8 @@
 #chat-message-area {
     flex-grow: 1;
     font-weight: 100;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-wrap: break-word;
-    display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
