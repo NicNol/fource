@@ -28,16 +28,18 @@ socket.on('update-online-status', (color, status) => {
     let newStatus = status;
     let oldStatus;
     newStatus == "online" ? oldStatus = "offline" : oldStatus = "online";
-    
-    if (document.getElementById(color + "-online-status").classList.contains(newStatus)) {return;}
-    
+
+    if (document.getElementById(color + "-online-status").classList.contains(newStatus)) { return; }
+
     document.getElementById(color + "-online-status").classList.remove(oldStatus)
     document.getElementById(color + "-online-status").classList.add(newStatus)
 
 })
 
 socket.on('piece-drop', passedTargetSquare => {
+    removeDropPieceStyling(targetSquare);
     targetSquare = passedTargetSquare;
+    addDropPieceStyling(targetSquare);
     dropPieceIn(targetSquare);
     forcePiecesFrom(targetSquare);
     removeTargetDropClasses();
@@ -58,7 +60,7 @@ socket.on('receive-chat-message', messageHTML => {
 
 chatForm.addEventListener('submit', event => {
     event.preventDefault();
-    if(chatInput.value) {
+    if (chatInput.value) {
         socket.emit('chat-message', socket.id, chatInput.value)
     }
     chatInput.value = "";
@@ -226,7 +228,6 @@ async function newGame() {
         else { cells[i].innerHTML = "" }
     }
     turn = "white"
-    
 
     let connectResponse = await didBothUsersConnect;
 
@@ -275,10 +276,13 @@ function drag(ev) {
 }
 
 function drop(ev) {
+    getCells();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("piece");
     ev.target.appendChild(document.getElementById(data));
-    setTargetSquare(ev.target)
+    removeDropPieceStyling(targetSquare);
+    setTargetSquare(ev.target);
+    addDropPieceStyling(targetSquare);
     forcePiecesFrom(targetSquare);
     removeTargetDropClasses();
     nextTurn();
@@ -356,6 +360,17 @@ function removeTargetDropClasses() {
     cells[targetSquare].childNodes[0].removeAttribute("ondragstart");
     cells[targetSquare].removeAttribute("ondrop");
     cells[targetSquare].removeAttribute("ondragover");
+}
+
+function addDropPieceStyling(target) {
+    cells[target].classList.add("droppedPiece");
+}
+
+function removeDropPieceStyling(target) {
+    if (target === undefined) {return};
+    console.log(target);
+    cells[target].classList.remove("droppedPiece");
+    console.log(cells[target]);
 }
 
 function renderBoardHTML() {

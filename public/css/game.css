@@ -22,7 +22,7 @@
 }
 
 .even .cell:nth-child(even), .odd .cell:nth-child(odd) {
-    background-color: #ebe5d5;
+    background-color: #ebe5d5;    
 }
 
 .even .cell:nth-child(odd), .odd .cell:nth-child(even) {
@@ -57,6 +57,14 @@
 .even .cell:nth-child(odd).unsafeDrop, .odd .cell:nth-child(even).unsafeDrop {
     animation: flashDark .5s ease-in 0s 1 forwards;
     -webkit-animation: flashDark .5s ease-in 0s 1 forwards;
+}
+
+.even .cell:nth-child(even).droppedPiece, .odd .cell:nth-child(odd).droppedPiece  {
+    background-color: #baf0ad;
+}
+
+.even .cell:nth-child(odd).droppedPiece, .odd .cell:nth-child(even).droppedPiece {
+    background-color: #7cb963;
 }
 
 @keyframes flashLight {
