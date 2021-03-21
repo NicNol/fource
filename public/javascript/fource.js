@@ -4,6 +4,7 @@ const gameID = window.location.pathname.slice(1, 12)
 const chatForm = document.getElementById('chat-form');
 const chatInput = document.getElementById('chat-input')
 const chatArea = document.getElementById('chat-message-area')
+const moveSound = document.getElementById('moveSound');
 
 var turn = "white"
 var userColor = "spectator";
@@ -45,6 +46,7 @@ socket.on('piece-drop', passedTargetSquare => {
     setSafeDropArray();
     setScores();
     checkGameOver();
+    moveSound.play();
 })
 
 socket.on('receive-chat-message', messageHTML => {
@@ -284,6 +286,7 @@ function drop(ev) {
     setSafeDropArray();
     setScores();
     checkGameOver();
+    moveSound.play();
     socket.emit('user-piece-drop', gameID, targetSquare)
 }
 
