@@ -14,6 +14,16 @@
 <body onload="newGame()">
     <nav id="topNavBar"></nav>
     <div class="container">
+        <div class="chat">
+            <div class="chat-header">
+                <h3>Chat</h3>
+            </div>
+            <div id="chat-message-area">
+            </div>
+            <div id="chat-input-box">
+                <form id="chat-form" action=""><input id="chat-input" autocomplete="off"><button>Send</button></form>
+            </div>
+        </div>
         <div class="gameboard">
             <div class="row even">
                 <div class="cell"></div>
@@ -97,32 +107,39 @@
             </div>
         </div>
         <div class="sidebar">
+
             <div class="upper">
-                <div class="player-name">
-                    Black Player
-                </div>
+                <div id="black-timer-block">00:00:00</div>
+                <div class="score">Score: <span id="black-score">0</span></div>
                 <div id="black-play"></div>
                 <div id="black-message-box"></div>
-                <div class="score">Score: <span id="black-score"></span></div>
+                <div class="player-name">
+                    <div id="black-online-status" class="offline"></div> <span id="black-player-name">Black
+                        Player</span>
+                </div>
             </div>
             <div class="lower">
                 <div class="player-name">
-                    White Player
+                    <div id="white-online-status" class="offline"></div> <span id="white-player-name">White
+                        Player</span>
                 </div>
                 <div id="white-play"></div>
                 <div id="white-message-box"></div>
-                <div class="score">Score: <span id="white-score"></span></div>
+                <div class="score">Score: <span id="white-score">0</span></div>
+                <div id="white-timer-block">00:00:00</div>
             </div>
+
         </div>
     </div>
     <div class="bottom-section">
 
     </div>
-
-    <script
-			  src="https://code.jquery.com/jquery-3.6.0.min.js"
-			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			  crossorigin="anonymous"></script>
+    <audio id="moveSound">
+        <source src="/sounds/Move.ogg" type="audio/ogg" preload="auto">
+        <source src="/sounds/Move.mp3" type="audio/mpeg" preload="auto">
+    </audio>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Load Navbars -->
     <script>$(function () {
             $("#topNavBar").load("/_html/_navbar.html");

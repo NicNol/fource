@@ -1,6 +1,11 @@
 const socket = io(null, { autoConnect: true });
 const gameID = window.location.pathname.slice(1, 12)
 
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input')
+const chatArea = document.getElementById('chat-message-area')
+const moveSound = document.getElementById('moveSound');
+
 var turn = "white"
 var userColor = "spectator";
 var cells, cellsClone;
@@ -12,14 +17,29 @@ var whiteScore, blackScore;
 var winner;
 var lastTurn = false;
 
-socket.emit('player connect', gameID)
+socket.emit('user-connected', gameID)
 
 socket.on('assign-color', color => {
     userColor = color;
+    socket.emit('color-is-online', color);
+})
+
+socket.on('update-online-status', (color, status) => {
+    let newStatus = status;
+    let oldStatus;
+    newStatus == "online" ? oldStatus = "offline" : oldStatus = "online";
+
+    if (document.getElementById(color + "-online-status").classList.contains(newStatus)) { return; }
+
+    document.getElementById(color + "-online-status").classList.remove(oldStatus)
+    document.getElementById(color + "-online-status").classList.add(newStatus)
+
 })
 
 socket.on('piece-drop', passedTargetSquare => {
+    removeDropPieceStyling(targetSquare);
     targetSquare = passedTargetSquare;
+    addDropPieceStyling(targetSquare);
     dropPieceIn(targetSquare);
     forcePiecesFrom(targetSquare);
     removeTargetDropClasses();
@@ -28,7 +48,23 @@ socket.on('piece-drop', passedTargetSquare => {
     setSafeDropArray();
     setScores();
     checkGameOver();
+    moveSound.play();
 })
+
+socket.on('receive-chat-message', messageHTML => {
+    let newMessage = document.createElement('span');
+    newMessage.innerHTML = messageHTML;
+    chatArea.appendChild(newMessage);
+    chatArea.scrollTop = chatArea.scrollHeight;
+});
+
+chatForm.addEventListener('submit', event => {
+    event.preventDefault();
+    if (chatInput.value) {
+        socket.emit('chat-message', socket.id, chatInput.value)
+    }
+    chatInput.value = "";
+});
 
 function scoreCheck(pieceClass) {
     let clusters = []
@@ -192,7 +228,6 @@ async function newGame() {
         else { cells[i].innerHTML = "" }
     }
     turn = "white"
-    
 
     let connectResponse = await didBothUsersConnect;
 
@@ -241,10 +276,13 @@ function drag(ev) {
 }
 
 function drop(ev) {
+    getCells();
     ev.preventDefault();
     var data = ev.dataTransfer.getData("piece");
     ev.target.appendChild(document.getElementById(data));
-    setTargetSquare(ev.target)
+    removeDropPieceStyling(targetSquare);
+    setTargetSquare(ev.target);
+    addDropPieceStyling(targetSquare);
     forcePiecesFrom(targetSquare);
     removeTargetDropClasses();
     nextTurn();
@@ -252,6 +290,7 @@ function drop(ev) {
     setSafeDropArray();
     setScores();
     checkGameOver();
+    moveSound.play();
     socket.emit('user-piece-drop', gameID, targetSquare)
 }
 
@@ -321,6 +360,17 @@ function removeTargetDropClasses() {
     cells[targetSquare].childNodes[0].removeAttribute("ondragstart");
     cells[targetSquare].removeAttribute("ondrop");
     cells[targetSquare].removeAttribute("ondragover");
+}
+
+function addDropPieceStyling(target) {
+    cells[target].classList.add("droppedPiece");
+}
+
+function removeDropPieceStyling(target) {
+    if (target === undefined) {return};
+    console.log(target);
+    cells[target].classList.remove("droppedPiece");
+    console.log(cells[target]);
 }
 
 function renderBoardHTML() {

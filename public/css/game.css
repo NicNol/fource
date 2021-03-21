@@ -22,7 +22,7 @@
 }
 
 .even .cell:nth-child(even), .odd .cell:nth-child(odd) {
-    background-color: #ebe5d5;
+    background-color: #ebe5d5;    
 }
 
 .even .cell:nth-child(odd), .odd .cell:nth-child(even) {
@@ -59,6 +59,14 @@
     -webkit-animation: flashDark .5s ease-in 0s 1 forwards;
 }
 
+.even .cell:nth-child(even).droppedPiece, .odd .cell:nth-child(odd).droppedPiece  {
+    background-color: #baf0ad;
+}
+
+.even .cell:nth-child(odd).droppedPiece, .odd .cell:nth-child(even).droppedPiece {
+    background-color: #7cb963;
+}
+
 @keyframes flashLight {
     from {background-color: #ebe5d5;}
     to {background-color: #e0acac;}
@@ -69,18 +77,87 @@
     to {background-color: #b67373;}
 }
 
+.chat {
+    background-color: rgb(46, 46, 46);;
+    color: white;
+    float: left;
+    width: 320px;
+    margin-right:1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: white solid 2px;
+    border-radius: 8px 0px 0px 8px;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+    padding: 1em;
+    max-height: 608px;
+}
+
+.chat-header {
+    height: 4em;
+    text-align: center;
+    
+}
+
+.chat-header h3 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#chat-message-area {
+    flex-grow: 1;
+    font-weight: 100;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#chat-message-area span {
+    display: block;
+    margin: .25em 0;
+    padding: 1em 1em 0em 0em;
+}
+
+#chat-message-area em {
+    font-weight: 400;
+}
+
+#chat-input-box {
+    padding-top: 1em;
+}
+
+#chat-input-box form {
+    display: flex;
+}
+
+.chat input {
+    background-color: rgb(73, 73, 73);
+    color: white;
+    border: inset #999 2px;
+    border-radius: 2px;
+    width: 100%;
+    margin-right: 5px;
+    font-size: 12pt;
+}
+
+.chat button {
+    width: 60px;
+    background: none;
+    border: none;
+    color: rgb(150, 150, 150);
+}
+
 .sidebar {
     float: right;
     width: 320px;
     margin-left:1em;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-
 }
 
 .upper, .lower {
-    height: 100%;
     flex-grow: 1;
     padding: 1em;
     border: white solid 2px;
@@ -95,21 +172,79 @@
     background-color: rgb(46, 46, 46);
     color: white;
     margin-bottom: .5em;
-    border-radius: 8px 0px 8px 8px;
+    border-radius: 0px 8px 8px 8px;
 }
 
 .lower {
     background-color: rgb(224, 224, 224);
     color: black;
     margin-top: .5em;
-    border-radius: 8px 8px 0px 8px;
+    border-radius: 8px 8px 8px 0px;
+}
+
+.player-name, #white-message-box, #black-message-box {
+    flex-grow: 0;
+}
+
+.score span {
+    flex-grow: 0;
+    font-weight: 700;
+}
+
+#white-play, #black-play {
+    flex-basis: 80px;
+    display:flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+#white-online-status, #black-online-status {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    margin: 0 1em 0 0;
+}
+
+#black-message-box, #white-message-box {
+    height: 3em;
+}
+
+.online {
+    background-color: limegreen;
+}
+
+.offline {
+    background-color: #999;
+}
+
+.player-name span {
+    font-weight: 700;
+}
+
+#white-timer-block, #black-timer-block {
+    text-align: center;
+    font-size: 24pt;
+    text-shadow: #2e2e2e 2px 2px 0;
+    padding: .25em;
+    flex-grow: 0;
+}
+
+#white-timer-block {
+    border: inset #999 2px;
+    border-radius: 2px;
+    background-color: rgb(170, 170, 170);
+    color: white;
+}
+
+#black-timer-block {
+    border: inset #999 2px;
+    border-radius: 2px;
+    background-color:  rgb(73, 73, 73);
+    color: white;
 }
 
 .bottom-section {
     margin: 1em;
     text-align: center;
-}
-
-.score span {
-    font-weight: 700;
 }
