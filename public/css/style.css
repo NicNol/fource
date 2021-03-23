@@ -14,6 +14,10 @@ body {
     justify-content: center;
 }
 
+.text-content-box {
+    max-width: 640px;
+}
+
 h2 {
     color: rgb(224, 224, 224);
     font-weight: 700;
@@ -48,4 +52,23 @@ a {
 a:hover {
     color: #fff;
     top: -2px;
+}
+
+.image-right img {
+    width: 256px;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+}
+
+.text-subsection {
+    display: flex;
+    justify-content: space-between;
+    align-content: stretch;
+    line-height: 36px;
+    word-spacing: 3px;
+    padding: 4em 0;
+}
+
+.text-subsection .text-portion {
+    padding-right: 1em;
 }
