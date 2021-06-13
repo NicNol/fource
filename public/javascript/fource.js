@@ -230,7 +230,6 @@ async function newGame() {
     turn = "white"
 
     let connectResponse = await didBothUsersConnect;
-
     nextTurn();
     setSafeDropArray();
     setScores();
@@ -247,14 +246,12 @@ var didBothUsersConnect = new Promise((resolve, reject) => {
 var getPlayedMoves = new Promise((resolve, reject) => {
     socket.on('moves-played', moveSet => {
         let moveSetLength = moveSet.length;
-        switchTurn();
         for (let i = 0; i < moveSetLength; i++) {
             targetSquare = moveSet[i];
             dropPieceIn(targetSquare);
             forcePiecesFrom(targetSquare);
             nextTurn();
         }
-        switchTurn();
         if (moveSetLength > 0) {
             removeTargetDropClasses();
             clearUnsafeDrop();
@@ -368,9 +365,7 @@ function addDropPieceStyling(target) {
 
 function removeDropPieceStyling(target) {
     if (target === undefined) {return};
-    console.log(target);
     cells[target].classList.remove("droppedPiece");
-    console.log(cells[target]);
 }
 
 function renderBoardHTML() {
