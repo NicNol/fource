@@ -56,6 +56,8 @@ a:hover {
 
 .image-right img {
     width: 256px;
+    position: relative;
+    top: 3em;
     -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
     box-shadow: 3px 3px 5px 0px #00000075;
 }
