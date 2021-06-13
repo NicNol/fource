@@ -60,6 +60,7 @@ io.on('connection', socket => {
         socket.join(gameID);
 
         if (games[gameID] == undefined) {return}
+        
         if (games[gameID].white == undefined) {
             games[gameID].white = socket.id
             io.to(socket.id).emit('assign-color', "white")
@@ -67,9 +68,12 @@ io.on('connection', socket => {
         else if (games[gameID].black == undefined) {
             games[gameID].black = socket.id
             io.to(socket.id).emit('assign-color', "black")
-            io.to(gameID).emit('both-players-connected');
         }
         
+        if (games[gameID].white != undefined && games[gameID].black != undefined) {
+            io.to(gameID).emit('both-players-connected');
+        }
+
         const WhoIsInGame = io.in(gameID).allSockets()
         WhoIsInGame.then( connectedSockets => {
             if (connectedSockets.has(games[gameID].white)) {
