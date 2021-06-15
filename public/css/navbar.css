@@ -1,12 +1,16 @@
 nav {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     margin: 0px;
-    padding: 2em 0 5em 0;
+    padding: 1em 0 1em 0;
+    -webkit-box-shadow: inset 0px -20px 25px -20px rgba(0, 0, 0, 0.6);
+    box-shadow: inset 0px -20px 25px -20px rgba(0, 0, 0, 0.6);
 }
 
 .navRight {
     padding-right: 1em;
+    position: relative;
+    top: 7px;
 }
 
 .navLeft span {
@@ -21,7 +25,7 @@ nav {
 nav a {
     font-weight: 400;
     padding: 0 1em;
-    color:rgb(224, 224, 224);
+    color: rgb(224, 224, 224);
     text-transform: uppercase;
     text-decoration: none;
     text-shadow: #2e2e2e 1px 1px 0;

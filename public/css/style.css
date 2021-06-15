@@ -1,21 +1,50 @@
 @import url('reset.css');
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;400;700&display=swap');
 @import url('navbar.css');
-
 body {
     background-color: rgb(63, 63, 63);
     font-family: 'Heebo', sans-serif;
     font-weight: 400;
-    color:rgb(224, 224, 224);
+    color: rgb(224, 224, 224);
 }
 
 .container {
-    display:flex;
+    display: flex;
     justify-content: center;
+    background-color: #ccc;
+    overflow: hidden;
+    min-height: 100vh;
+    padding-top: 2em;
 }
 
 .text-content-box {
-    max-width: 640px;
+    width: 640px;
+    padding: 150px 100px 50px 100px;
+    background-color: #555;
+    margin: 30px;
+    position: relative;
+    margin-top: -100px;
+    margin-bottom: -100px;
+}
+
+.text-content-box:before {
+    box-shadow: -20px 0 20px -20px #333 inset;
+    content: " ";
+    height: 100%;
+    left: -20px;
+    position: absolute;
+    top: 0;
+    width: 20px;
+}
+
+.text-content-box:after {
+    box-shadow: 20px 0 20px -20px #333 inset;
+    content: " ";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -20px;
+    width: 20px;
 }
 
 h2 {
@@ -37,28 +66,22 @@ p {
 }
 
 a {
-    font-weight: 400;
-    padding: 0 1em;
-    color:rgb(224, 224, 224);
-    text-transform: uppercase;
-    text-decoration: none;
+    color: rgb(224, 224, 224);
+    text-decoration: underline;
     text-shadow: #2e2e2e 1px 1px 0;
-    position: relative;
-    top: 0px;
-    display: inline-block;
-    transition: color 0.2s ease-in-out, top 0.1s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    text-decoration-style: dotted;
 }
 
 a:hover {
     color: #fff;
-    top: -2px;
 }
 
 .image-right img {
     width: 256px;
     position: relative;
     top: 3em;
-    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075;
     box-shadow: 3px 3px 5px 0px #00000075;
 }
 
@@ -73,4 +96,19 @@ a:hover {
 
 .text-subsection .text-portion {
     padding-right: 1em;
+}
+
+.game-block {
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin: 1em auto;
+    padding: 2em 0;
+    border: solid black 1px;
+    background-color: rgba(0,0,0,.3);
+    border-radius: 4px;
+    font-size: 24pt;
+    -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
+    box-shadow: 3px 3px 5px 0px #00000075;
+    text-decoration: none;
 }
