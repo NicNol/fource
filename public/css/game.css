@@ -4,6 +4,7 @@
     -webkit-box-shadow: 3px 3px 5px 0px #00000075; 
     box-shadow: 3px 3px 5px 0px #00000075;
     min-width: 640px;
+    max-height: 640px;
 }
 
 .row {
@@ -155,6 +156,7 @@
     margin-left:1em;
     display: flex;
     flex-direction: column;
+    max-height: 640px;
 }
 
 .upper, .lower {
